@@ -47,7 +47,7 @@ public class catalogue {
             //hc.setDoOutput(true);
             hc.setUseCaches(false);
             hc.setRequestMethod("GET");
-            hc.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
+            //hc.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
             hc.setRequestProperty("Content-Type", "application/hal+json");
             //hc.setRequestProperty("Accept", "application/json");
             hc.setRequestProperty("Accept", "application/json,text/html,application/hal+json,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*");
@@ -70,14 +70,18 @@ public class catalogue {
             int rc = hc.getResponseCode();
             if ((rc == HttpURLConnection.HTTP_OK) || (rc == HttpURLConnection.HTTP_CREATED)) {
                 int Length = hc.getContentLength();
+                String Content=hc.getContentType();
+                String Encoding= hc.getContentEncoding();
+                
                 InputStreamReader in = new InputStreamReader((InputStream) hc.getInputStream());
                 BufferedReader buff = new BufferedReader(in);
 
                 StringBuffer response = new StringBuffer();
                 String line = null;
+                
                 do {
                     line = buff.readLine();
-                    response.append(line + "\n");
+                    response.append(line);
                 } while (line != null);
                 JSONObject obj=null;
                 //System.out.println(sBuff);
