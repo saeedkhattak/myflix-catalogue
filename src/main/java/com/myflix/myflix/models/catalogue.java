@@ -5,6 +5,9 @@
  */
 package com.myflix.myflix.models;
 
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
 import com.myflix.myflix.stores.Video;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -15,8 +18,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -30,6 +34,7 @@ public class catalogue {
 
     public java.util.LinkedList<Video> videos() {
         URL videos = null;
+        LinkedList<Video> videolist=new LinkedList();
         try {
             videos = new URL("http://a41-catalogue.cloudapp.net:8080/myflix/videos");
         } catch (Exception et) {
@@ -70,25 +75,56 @@ public class catalogue {
             int rc = hc.getResponseCode();
             if ((rc == HttpURLConnection.HTTP_OK) || (rc == HttpURLConnection.HTTP_CREATED)) {
                 int Length = hc.getContentLength();
-                String Content=hc.getContentType();
-                String Encoding= hc.getContentEncoding();
-                
+                String Content = hc.getContentType();
+                String Encoding = hc.getContentEncoding();
+
                 InputStreamReader in = new InputStreamReader((InputStream) hc.getInputStream());
                 BufferedReader buff = new BufferedReader(in);
 
                 StringBuffer response = new StringBuffer();
                 String line = null;
-                
+
                 do {
                     line = buff.readLine();
-                    response.append(line);
+                    if (line != null) {
+                        response.append(line);
+                    }
                 } while (line != null);
-                JSONObject obj=null;
+                JsonObject obj = new JsonObject();
                 //System.out.println(sBuff);
                 try {
-                    obj = new JSONObject(response);
-                } catch (JSONException et) {
-                    System.out.println("JSON Parse error in " + response+":"+et);
+
+                    obj = JsonObject.readFrom(response.toString());
+                    List<String> ll = obj.names();
+                    JsonObject obj2 = obj.get("_embedded").asObject();
+                    ll = obj2.names();
+                    JsonArray items = obj2.get("rh:doc").asArray();
+                    int number =items.size();
+                    for (JsonValue item : items) {
+                        JsonObject obj3 = item.asObject();
+                        ll = obj3.names();
+                        int i = 0;
+                        for(String l:ll){
+                            if (l.compareTo("video") == 0) {
+                                HashMap<String,String> fields=new HashMap();
+                                JsonObject video = obj3.get("video").asObject();
+                                List<String>  names=video.names();
+                                for (String name:names){
+                                   JsonValue Value=video.get(name);
+                                   fields.put(name,Value.asString());
+                                   
+                                }
+                                Video vv=new Video();
+                                vv.setFields(fields);
+                                videolist.add(vv);
+                            }
+                            
+                        }
+                        
+                    }
+
+                } catch (Exception et) {
+                    System.out.println("JSON Parse error in " + response + ":" + et);
                     return null;
                 }
             }
@@ -96,7 +132,8 @@ public class catalogue {
             System.out.println("Can't decode returned statment");
             return null;
         }
-        return null;
+
+        return videolist;
     }
 
 }

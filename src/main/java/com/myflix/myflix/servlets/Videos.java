@@ -6,8 +6,11 @@
 package com.myflix.myflix.servlets;
 
 import com.myflix.myflix.models.catalogue;
+import com.myflix.myflix.stores.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +37,11 @@ public class Videos extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         catalogue cc=new catalogue();
-        cc.videos();
+        LinkedList<Video> videos=cc.videos();
+        RequestDispatcher rd = request.getRequestDispatcher("/Videos.jsp");
+        request.setAttribute("Videos", videos);
+        rd.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
