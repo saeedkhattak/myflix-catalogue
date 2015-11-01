@@ -28,9 +28,12 @@
                     String server=fields.get("server").replaceAll("\"", "");
                     String name=fields.get("Name").replaceAll("\"", "");
                     String thumb=fields.get("thumb").replaceAll("\"", "");
+                    String suuid=fields.get("uuid").replaceAll("\"", "");
                     %>
                     <h2 class="name"><%=name%></h2>
+                    <a href="/myflix/video/<%=suuid%>">
                     <img src="http://a41-stream<%=server%>.cloudapp.net/pics/<%=thumb%>">
+                    </a>
                     <%
                 }
             }

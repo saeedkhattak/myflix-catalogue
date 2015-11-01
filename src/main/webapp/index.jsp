@@ -11,15 +11,6 @@
     </head>
     <body>
         <h1>Welcome</h1>
-         <%
-            java.util.LinkedList<Video> lsVideos = (java.util.LinkedList<Video>) request.getAttribute("Videos");
-            if (lsVideos != null) {
-                for (Video video:lsVideos){
-                    HashMap<String,String> fields= video.getfields();
-                    
-                }
-            }
-            
-        %>
+        <a href="/myflix/videos">Got to videos</a>
     </body>
 </html>
