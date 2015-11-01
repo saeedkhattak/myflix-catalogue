@@ -32,7 +32,7 @@ public class catalogue {
 
     }
 
-    public java.util.LinkedList<Video> videos() {
+    public LinkedList<Video> videos() {
         URL videos = null;
         LinkedList<Video> videolist=new LinkedList();
         try {
@@ -111,7 +111,8 @@ public class catalogue {
                                 List<String>  names=video.names();
                                 for (String name:names){
                                    JsonValue Value=video.get(name);
-                                   fields.put(name,Value.asString());
+                                   String sValue=Value.toString();
+                                   fields.put(name,sValue);
                                    
                                 }
                                 Video vv=new Video();

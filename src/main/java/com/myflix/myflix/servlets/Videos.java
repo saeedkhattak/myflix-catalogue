@@ -38,7 +38,7 @@ public class Videos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         catalogue cc=new catalogue();
         LinkedList<Video> videos=cc.videos();
-        RequestDispatcher rd = request.getRequestDispatcher("/Videos.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/videos.jsp");
         request.setAttribute("Videos", videos);
         rd.forward(request, response);
         
