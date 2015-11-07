@@ -19,7 +19,7 @@
         <title>Videos</title>
     </head>
     <body>
-         <h1>Your Vidoes</h1>
+         <h1>Your Videos</h1>
          <%
             LinkedList<Video> lsVideos = (java.util.LinkedList<Video>) request.getAttribute("Videos");
             if (lsVideos != null) {
