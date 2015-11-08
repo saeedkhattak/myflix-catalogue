@@ -104,16 +104,14 @@ public class categories {
                         ll = obj3.names();
                         int i = 0;
                         for(String l:ll){
-                            if (l.compareTo("categorie") == 0) {
+                            if (l.compareTo("category") == 0) {
                                 HashMap<String,String> fields=new HashMap();
-                                JsonObject video = obj3.get("categoire").asObject();
-                                List<String>  names=video.names();
-                                for (String name:names){
-                                   JsonValue Value=video.get(name);
-                                   String sValue=Value.toString();
-                                   fields.put(name,sValue);
+                                String category = obj3.get("category").asString();
+                                
+                                
+                                   fields.put(l,category);
                                    
-                                }
+                              
                                 Categorie vv=new Categorie();
                                 vv.setFields(fields);
                                 categorielist.add(vv);

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author andy
  */
-@WebServlet(name = "Categories", urlPatterns = {"/Categories","/Categories"})
+@WebServlet(name = "Categories", urlPatterns = {"/Categories","/categories"})
 public class Categories extends HttpServlet {
 
     /**
@@ -38,7 +38,7 @@ public class Categories extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         categories cc=new categories();
         LinkedList<com.myflix.myflix.stores.Categorie> categorielist=cc.listcategories();
-        RequestDispatcher rd = request.getRequestDispatcher("/videos.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/RenderJson");
         request.setAttribute("Categories", categorielist);
         rd.forward(request, response);
     }
