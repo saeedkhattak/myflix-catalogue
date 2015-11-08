@@ -37,9 +37,9 @@ public class Categories extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         categories cc=new categories();
-        LinkedList<com.myflix.myflix.stores.Categorie> categorielist=cc.listcategories();
+        LinkedList<com.myflix.myflix.stores.Category> categorielist=cc.listcategories();
         RequestDispatcher rd = request.getRequestDispatcher("/RenderJson");
-        request.setAttribute("Categories", categorielist);
+        request.setAttribute("Data", categorielist);
         rd.forward(request, response);
     }
 

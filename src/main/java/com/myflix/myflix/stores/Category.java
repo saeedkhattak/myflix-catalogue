@@ -11,18 +11,20 @@ import java.util.HashMap;
  *
  * @author andy
  */
-public class Categorie {
+public class Category {
      HashMap<String,String> hl=null;
+     String Category=null;
     public void Categorie(){
         
     }
     
-    public void setFields(HashMap hl){
-        this.hl=hl;
+
+    
+    public void setCategory(String Category){
+        this.Category=Category;
     }
     
-    public HashMap<String,String> getfields(){
-        return hl;
+    public String getCategory(){
+        return Category;
     }
-    
 }

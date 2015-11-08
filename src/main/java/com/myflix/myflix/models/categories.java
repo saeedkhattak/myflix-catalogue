@@ -8,7 +8,7 @@ package com.myflix.myflix.models;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
-import com.myflix.myflix.stores.Categorie;
+import com.myflix.myflix.stores.Category;
 import com.myflix.myflix.stores.Video;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -31,9 +31,9 @@ public class categories {
 
     }
     
-    public LinkedList<Categorie> listcategories() {
+    public LinkedList<Category> listcategories() {
         URL videos = null;
-        LinkedList<Categorie> categorielist=new LinkedList();
+        LinkedList<Category> categorielist=new LinkedList();
         try {
             videos = new URL("http://a41-catalogue.cloudapp.net:8080/myflix/categories");
         } catch (Exception et) {
@@ -108,12 +108,10 @@ public class categories {
                                 HashMap<String,String> fields=new HashMap();
                                 String category = obj3.get("category").asString();
                                 
-                                
-                                   fields.put(l,category);
                                    
                               
-                                Categorie vv=new Categorie();
-                                vv.setFields(fields);
+                                Category vv=new Category();
+                                vv.setCategory(category);
                                 categorielist.add(vv);
                             }
                             
